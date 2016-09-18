@@ -1,0 +1,14 @@
+<h2>Product specification</h2>
+{{#specification}}
+<div>
+{{#item}}
+    <p>
+        {{key}}
+    </p>
+    <p>
+        {{value}}
+    </p>
+{{/item}}
+</div>
+{{/specification}}
+

@@ -1,0 +1,65 @@
+<div class="description">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+        <li role="presentation"><a href="#additional-info" aria-controls="profile" role="tab" data-toggle="tab">Additional Information</a></li>
+        <li role="presentation"><a href="#reviews" aria-controls="messages" role="tab" data-toggle="tab">Reviews(4)</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="description">
+            <h2>Product Feature</h2>
+            <p>Lorem ipsum dolor sit amet, no mea aeterno indoctum percipitur. Homero quaerendum ius ei. In pro decore tamquam 									appetere, ea mentitum mediocrem efficiantur quo. Quo no assentior conclusionemque. Qui cu ceteros accusata. Partem 									utamur explicari eos at. Ad brute veritus theophrastus vis, an quo mutat voluptaria mnesarchum, eum impetus numquam 								intellegam in. Eu alii oratio aliquip mea, eum inani tantas ex. In sit vidit eirmod, ceteros reprimique sit cu, 								    facilisis assueverit disputationi ad est.</p>
+
+            <ul class="list-ver">
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+            </ul>
+
+            <p>Lorem ipsum dolor sit amet, no mea aeterno indoctum percipitur. Homero quaerendum ius ei. In pro decore tamquam 									appetere, ea mentitum mediocrem efficiantur quo. Quo no assentior conclusionemque. Qui cu ceteros accusata. Partem 									utamur explicari eos at. Ad brute veritus theophrastus vis, an quo mutat voluptaria mnesarchum, eum impetus numquam 								intellegam in. Eu alii oratio aliquip mea, eum inani tantas ex. In sit vidit eirmod, ceteros reprimique sit cu, 								    facilisis assueverit disputationi ad est.</p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="additional-info">
+            <h2>Product's More Information</h2>
+            <p>Lorem ipsum dolor sit amet, no mea aeterno indoctum percipitur. Homero quaerendum ius ei. In pro decore tamquam 									appetere, ea mentitum mediocrem efficiantur quo. Quo no assentior conclusionemque. Qui cu ceteros accusata. Partem 									utamur explicari eos at. Ad brute veritus theophrastus vis, an quo mutat voluptaria mnesarchum, eum impetus numquam 								intellegam in. Eu alii oratio aliquip mea, eum inani tantas ex. In sit vidit eirmod, ceteros reprimique sit cu, 								    facilisis assueverit disputationi ad est.</p>
+
+            <ul class="list-ver">
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+            </ul>
+
+            <p>Lorem ipsum dolor sit amet, no mea aeterno indoctum percipitur. Homero quaerendum ius ei. In pro decore tamquam 									appetere, ea mentitum mediocrem efficiantur quo. Quo no assentior conclusionemque. Qui cu ceteros accusata. Partem 									utamur explicari eos at. Ad brute veritus theophrastus vis, an quo mutat voluptaria mnesarchum, eum impetus numquam 								intellegam in. Eu alii oratio aliquip mea, eum inani tantas ex. In sit vidit eirmod, ceteros reprimique sit cu, 								    facilisis assueverit disputationi ad est.</p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="reviews">
+            <h2>Product Reviews</h2>
+            <p>Lorem ipsum dolor sit amet, no mea aeterno indoctum percipitur. Homero quaerendum ius ei. In pro decore tamquam 									appetere, ea mentitum mediocrem efficiantur quo. Quo no assentior conclusionemque. Qui cu ceteros accusata. Partem 									utamur explicari eos at. Ad brute veritus theophrastus vis, an quo mutat voluptaria mnesarchum, eum impetus numquam 								intellegam in. Eu alii oratio aliquip mea, eum inani tantas ex. In sit vidit eirmod, ceteros reprimique sit cu, 								    facilisis assueverit disputationi ad est.</p>
+
+            <ul class="list-ver">
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+                <li><i class="fa fa-check"></i>Mutat voluptaria mnesarchum impetus</li>
+            </ul>
+
+            <p>Lorem ipsum dolor sit amet, no mea aeterno indoctum percipitur. Homero quaerendum ius ei. In pro decore tamquam 									appetere, ea mentitum mediocrem efficiantur quo. Quo no assentior conclusionemque. Qui cu ceteros accusata. Partem 									utamur explicari eos at. Ad brute veritus theophrastus vis, an quo mutat voluptaria mnesarchum, eum impetus numquam 								intellegam in. Eu alii oratio aliquip mea, eum inani tantas ex. In sit vidit eirmod, ceteros reprimique sit cu, 								    facilisis assueverit disputationi ad est.</p>
+        </div>
+    </div>
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+            <li class="center-block"><a href="#"><i class="fa fa-th"></i></a></li>
+            <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+    
+</div>

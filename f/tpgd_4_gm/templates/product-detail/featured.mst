@@ -1,0 +1,33 @@
+{{#slideFlag}}
+<ol class="carousel-indicators">
+    <li data-target="#related-pro" data-slide-to="0" class="active"><i class="fa fa-angle-left"></i></li>
+    <li data-target="#related-pro" data-slide-to="1"><i class="fa fa-angle-right"></i></li>
+</ol>
+{{/slideFlag}}
+<div class="carousel-inner" role="listbox">
+    {{#slide}}
+    <div class="item {{^idx}}active{{/idx}}">
+        <div class="row">
+            {{#item}}
+            <div class="col-sm-3">
+                <div class="thumbnail">
+                    <!--span class="e-label"><div>Sale</div></span-->
+                    <span class="service-link text-center">
+                        <img class="img-responsive" src="images/portfolio/full/item1.jpg" alt="">
+                        <div class="list-inline">
+                            <a href=""><i class="fa fa-eye"></i></a>
+                            <a href=""><i class="fa fa-link"></i></a>
+                        </div>
+                    </span>
+                    <div class="caption">
+                        <div class="category"> {{category}}
+                        </div>
+                        <h3>{{name}}</h3>
+                    </div>
+                </div>
+            </div>
+            {{/item}}
+        </div>
+    </div>
+    {{/slide}}
+</div>

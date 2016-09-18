@@ -1,0 +1,9 @@
+<h2>Q&A</h2>
+{{#qa}}
+    {{#item}}
+        <div class="qa-block">
+            <h3 class="panel-title">{{question}}</h3>
+            <p>{{answer}}</p>
+        </div>
+    {{/item}}
+{{/qa}}

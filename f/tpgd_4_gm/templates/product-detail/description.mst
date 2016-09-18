@@ -1,0 +1,4 @@
+<h2>Product Feature</h2>
+<p>
+    {{longDescription}}
+</p>
