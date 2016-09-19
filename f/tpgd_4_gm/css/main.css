@@ -888,6 +888,12 @@ a.social-icon:hover, a.social-icon:active, a.social-icon:focus {
 	color: #f39c12;
 	border-color: #f39c12;
 }
-.qa-block {
+.mb30 {
     margin-bottom: 30px;
+}
+.mr30 {
+    margin-right: 30px;
+}
+.mb15 {
+    margin-bottom: 15px;
 }

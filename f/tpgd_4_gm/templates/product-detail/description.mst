@@ -1,4 +1,7 @@
 <h2>Product Feature</h2>
-<p>
+<div class="clearfix">
+    <img src="{{brandImage}}" class="product-brand" title="{{brandName}}" alt="brand logo">
+    <div>
     {{longDescription}}
-</p>
+    </div>
+</div>

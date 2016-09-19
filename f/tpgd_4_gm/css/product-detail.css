@@ -240,6 +240,26 @@ p.tags span {
     font-size: 14px;
     font-weight: 300;
     margin-top: 8px;
-    border-bottom: 1px solid rgba(238, 238, 238, 0.8);
     padding-bottom: 10px;
+}
+.nav-tabs>li {
+    margin-bottom: -2px;
+}
+.product-brand {
+    float:right;
+    margin-left:20px;
+    margin-bottom:15px;
+}
+.product-specification {
+    padding: 8px 0;
+}
+.product-specification:nth-child(even) {
+    background: rgba(252,227,188,0.2);
+}
+.specification-title {
+    padding-left: 10px;
+    width: 180px;
+    float: left;
+    font-weight: 700;
+    font-size: 14px;
 }

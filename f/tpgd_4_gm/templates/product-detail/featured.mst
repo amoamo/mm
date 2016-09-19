@@ -13,10 +13,9 @@
                 <div class="thumbnail">
                     <!--span class="e-label"><div>Sale</div></span-->
                     <span class="service-link text-center">
-                        <img class="img-responsive" src="images/portfolio/full/item1.jpg" alt="">
+                        <img class="img-responsive" src="{{image}}" alt="">
                         <div class="list-inline">
-                            <a href=""><i class="fa fa-eye"></i></a>
-                            <a href=""><i class="fa fa-link"></i></a>
+                            <a href="product-detail.html?id={{id}}"><i class="fa fa-link"></i></a>
                         </div>
                     </span>
                     <div class="caption">

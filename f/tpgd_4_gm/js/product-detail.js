@@ -1,4 +1,9 @@
 jQuery(function($) {'use strict',
+    $.getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
   	$(document).ready(function() {
         var slideMax = 4;
         var tpl = {
@@ -7,116 +12,79 @@ jQuery(function($) {'use strict',
             "qa": '../templates/product-detail/qa.mst',
             "featured": '../templates/product-detail/featured.mst'
         };
+        var api = {
+            "description": '/pd',
+            "specification": '/ps',
+            "qa": '/qa',
+            "featured": '/products/feature'
+        };
+        var id = $.getUrlParam('id');
         function renderProductInfo() {
             $.get(tpl.description, function(template) {
-                //第一个tab
-                var description = {
-                    "longDescription": "long_description",
-                    "brandName": "brand_name",
-                    "brandImage": "brand_image"
-                };
-                var rendered = Mustache.render(template, description);
-                $('#description').html(rendered);
+                $.get(api.description + '/' + id, function(description){
+                    var rendered = Mustache.render(template, description);
+                    $('#description').html(rendered);
+                }, 'JSON')
             });
             $.get(tpl.specification, function(template) {
-                //第二个tab
-                var specification = {
-                    "specification": [{"11": "value11"}, {"22": "value22"}]
-                };
-                var rendered = Mustache.render(template, {
-                    "specification": specification.specification,
-                    "item": function() {
-                        var me = this;
-                        var item = {};
-                        for(var k in me) {
-                            item.key = k;
-                            item.value = me[k];
-                            return item;
+                $.get(api.specification + '/' + id, function(specification){
+                    var rendered = Mustache.render(template, {
+                        "specification": specification,
+                        "item": function() {
+                            var me = this;
+                            var item = {};
+                            for(var k in me) {
+                                item.key = k;
+                                item.value = me[k];
+                                return item;
+                            }
                         }
-                    }
-                });
-                $('#specification').html(rendered);
+                    });
+                    $('#specification').html(rendered);
+                }, 'JSON')
             });
             $.get(tpl.qa, function(template) {
-                //第三个tab
-                var qa = {
-                    "qa": [{
-                        "1": {
-                            "categoryName": "category_name",
-                            "question": "question_string1",
-                            "answer": "answer_string1"
-                        }
-                    },{
-                        "2": {
-                            "categoryName": "category_name",
-                            "question": "question_string2",
-                            "answer": "answer_string2"
-                        }
-                    }]
-                };
-                var rendered = Mustache.render(template, {
-                    "qa": qa.qa,
-                    "item": function() {
-                        var me = this;
-                        for(var k in me) {
-                            me[k].qid = k;
-                            return me[k];
-                        }
-                    }
-                });
-                $('#qa').html(rendered);
+                $.get(api.qa, function(qa){
+                    var rendered = Mustache.render(template, {
+                        "qa": qa
+                    });
+                    $('#qa').html(rendered);
+                }, 'JSON')
             });
         }
         function renderFeatured() {
             $.get(tpl.featured, function(template) {
-                debugger;
-                //featured
-                var featured = {
-                    "products": [{
-                        111: {"name": "product name1", "category": "category name1", "image": "image url1"}
-                    },{
-                        222: {"name": "product name2", "category": "category name2", "image": "image url2"}
-                    },{
-                        333: {"name": "product name2", "category": "category name2", "image": "image url2"}
-                    },{
-                        444: {"name": "product name2", "category": "category name2", "image": "image url2"}
-                    },{
-                        555: {"name": "product name2", "category": "category name2", "image": "image url2"}
-                    }]
-                };
-                var data = {};
-                data.products = [];
-                var product;
-                var id;
-                var tmp = [];
-                var item = {};
-                var products = featured.products || [];
-                var max = parseInt(products.length / slideMax);
-                var num = 0;
-                data.slideFlag = products.length > slideMax ? true : false;
-                for(var i = 0; i <= max; i++) {
-                    for (var j = 0; i * slideMax + j < products.length && j < slideMax; j++) {
-                        product = products[i * slideMax + j];
-                        for (k in product) {
-                            product[k].pid = k;
-                            id = k;
+                $.get(api.featured, function(featured){
+                    var data = {};
+                    data.products = [];
+                    var product;
+                    var id;
+                    var tmp = [];
+                    var item = {};
+                    var products = featured || [];
+                    var max = parseInt(products.length / slideMax);
+                    var num = 0;
+                    data.slideFlag = products.length > slideMax ? true : false;
+                    for(var i = 0; i <= max; i++) {
+                        for (var j = 0; i * slideMax + j < products.length && j < slideMax; j++) {
+                            product = products[i * slideMax + j];
+                            tmp.push(product);
                         }
-                        tmp.push(product[id]);
+                        data.products.push({
+                            idx: i,
+                            info: tmp.concat()
+                        });
+                        tmp = [];
                     }
-                    data.products.push({
-                        idx: i,
-                        info: tmp.concat()
+                    var rendered = Mustache.render(template, {
+                        "slideFlag": data.slideFlag,
+                        "slide": data.products,
+                        "item": function() {
+                            return this.info;
+                        }
                     });
-                    tmp = [];
-                }
-                var rendered = Mustache.render(template, {
-                    "slideFlag": data.slideFlag,
-                    "slide": data.products,
-                    "item": function() {
-                        return this.info;
-                    }
-                });
-                $('#related-pro').html(rendered);
+                    $('#related-pro').html(rendered);
+                }, 'JSON')
             });
         }
         renderProductInfo();

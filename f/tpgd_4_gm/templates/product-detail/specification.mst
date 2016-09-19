@@ -1,13 +1,13 @@
 <h2>Product specification</h2>
 {{#specification}}
-<div>
+<div class="product-specification">
 {{#item}}
-    <p>
+    <span class="specification-title mr30">
         {{key}}
-    </p>
-    <p>
+    </span>
+    <span>
         {{value}}
-    </p>
+    </span>
 {{/item}}
 </div>
 {{/specification}}

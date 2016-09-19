@@ -1,9 +1,7 @@
 <h2>Q&A</h2>
 {{#qa}}
-    {{#item}}
-        <div class="qa-block">
-            <h3 class="panel-title">{{question}}</h3>
-            <p>{{answer}}</p>
-        </div>
-    {{/item}}
+    <div class="mb30">
+        <h3 class="panel-title">{{question}}</h3>
+        <p>{{answer}}</p>
+    </div>
 {{/qa}}
