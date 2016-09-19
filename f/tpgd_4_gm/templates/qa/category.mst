@@ -1,0 +1,5 @@
+<ul class="dropdown-menu">
+    {{#category}}
+        <li data-id="{{id}}"><a href="javascript:void(0)">{{name}}</a></li>
+    {{/category}}
+</ul>
