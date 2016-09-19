@@ -1,0 +1,12 @@
+{{#products}}
+<div class="portfolio-item products col-xs-12 col-sm-4 col-md-4">
+    <div class="recent-work-wrap"> <img class="img-responsive" src="{{image}}" alt="product image">
+    <div class="overlay">
+        <div class="recent-work-inner">
+        <h3><a href="/product-detail.html?id={{id}}">{{name}}</a> </h3>
+        <p>{{category}}</p>
+        <a class="preview" href="{{image}}" rel="prettyPhoto"><i class="fa fa-search"></i> View</a> </div>
+    </div>
+    </div>
+</div>
+{{/products}}
