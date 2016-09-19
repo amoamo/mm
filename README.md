@@ -7,3 +7,4 @@
 - 更新了main.css
 - 增加product-detail.js
 - 更新product-detail.html
+- 更新product-detail.css
