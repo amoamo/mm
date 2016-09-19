@@ -18,3 +18,9 @@
 - 增加js/portfolio.js
 - 更新api目录
 - 更新templates目录
+
+- 增加js/qa.js
+- 增加qa.html
+- 更新api目录
+- 更新templates目录
+- 更新css/main.css
