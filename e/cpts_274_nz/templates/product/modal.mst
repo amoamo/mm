@@ -1,0 +1,56 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="name" class="col-sm-3 control-label">* Name</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control1 form-product-name" id="name" value="{{name}}" placeholder="please input the product name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name" class="col-sm-3 control-label">* Category</label>
+        <div class="col-sm-7">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name" class="col-sm-3 control-label">* Brand</label>
+        <div class="col-sm-7">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="shortDesc" class="col-sm-3 control-label">Short Description</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control1" id="shortDesc" value="{{shortDesc}}" placeholder="please input the short description">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="longDesc" class="col-sm-3 control-label">Long Description</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control1" id="shortDesc" value="{{longDesc}}" placeholder="please input the long description">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="userbook" class="col-sm-3 control-label">Userbook</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control1" id="userbook" value="{{userbook}}" placeholder="please input userbook">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="driver" class="col-sm-3 control-label">Driver</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control1" id="driver" value="{{driver}}" placeholder="please input driver">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="driver" class="col-sm-3 control-label">Driver</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control1" id="driver" value="{{driver}}" placeholder="please input driver">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="logo" class="col-sm-3 control-label">Logo</label>
+        <div class="col-sm-7" id="drag-and-drop-zone">
+            <input type="file" id="exampleInputFile" name="files[]"  accept="image/*" title='Click to add Image'>
+            <div class="panel-body upload-panel-files" id='upload-files'>
+            </div>
+        </div>
+    </div>
+</form>

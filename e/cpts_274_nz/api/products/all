@@ -1,7 +1,7 @@
 [
-    {"name": "product name1", "category": "category name1", "image": "images/portfolio/full/item1.jpg", "id": 11},
-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item2.jpg", "id": 22},
-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item1.jpg", "id": 33},
-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item1.jpg", "id": 44},
-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item1.jpg", "id": 55}
+    {"name": "product name1", "category": "category name1", "image": "images/pic4.jpg", "id": 11},
+    {"name": "product name2", "category": "category name2", "image": "images/pic4.jpg", "id": 22},
+    {"name": "product name2", "category": "category name2", "image": "images/pic4.jpg", "id": 33},
+    {"name": "product name2", "category": "category name2", "image": "images/pic4.jpg", "id": 44},
+    {"name": "product name2", "category": "category name2", "image": "images/pic4.jpg", "id": 55}
 ]

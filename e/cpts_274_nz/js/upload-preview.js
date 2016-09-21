@@ -1,6 +1,6 @@
 (function( $, window, undefined ) {
   $.uploader = $.extend( {}, {
-    addFile: function(id, i, file){
+    addFile: function(id, i, file, type){
 		var template = '<div id="upload-file' + i + '">' +
 		                   '<img src="" class="upload-image-preview" alt="upload image" />' +
 		                   file.name + ' <span class="upload-file-size">(' + $.uploader.humanizeSize(file.size) + ')</span><br />Status: <span class="upload-file-status">Waiting to upload</span>'+
@@ -17,7 +17,11 @@
 		}
 		i++;
 		$(id).attr('file-counter', i);
-		$(id).html(template);
+        if (type == 'single') {
+		    $(id).html(template);
+        } else if (type == 'mult') {
+		    $(id).prepend(template);
+        }
 	},
 	
 	updateFileStatus: function(i, status, message){

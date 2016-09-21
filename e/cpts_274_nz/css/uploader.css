@@ -142,7 +142,7 @@
 /* D&D upload */
 .upload-panel-files {
 	max-height: 290px;
-	min-height: 290px;
+	min-height: 130px;
 	overflow: auto;
 	cursor: default;
 }

@@ -1,29 +1,31 @@
 jQuery(function($) {'use strict',
   	$(document).ready(function() {
         var tpl = {
-            "brand": '../templates/brand/detail.mst',
-            "modal": '../templates/brand/modal.mst'
+            "product": '../templates/product/detail.mst',
+            "modal": '../templates/product/modal.mst'
         };
         var api = {
+            "product": "/api/products/all",
+            "category": "/category",
             "brand": "/brand",
-            "add": '/admin/brand',
-            "del": '/admin/brand',
-            "upload": '/upload'
+            "add": '/api/admin/product',
+            "del": '/api/admin/product',
+            "upload": '/api/upload'
         };
-        function renderBrand() {
-            $.get(tpl.brand, function(template) {
-                $.get(api.brand, function(brand){
+        function renderProduct() {
+            $.get(tpl.product, function(template) {
+                $.get(api.product, function(product){
                     var rendered = Mustache.render(template, {
-                        "brand": brand,
-                        "brandLength": brand.length
+                        "product": product,
+                        "productLength": product.length
                     });
-                    $('#brand-container').html(rendered);
+                    $('#product-container').html(rendered);
                 }, 'JSON')
             });
         }
         function bindBehavior() {
             //删除
-            $('.panel').on('click', '.del-brand', function(){
+            $('.panel').on('click', '.del-product', function(){
                 var me = $(this);
                 var id = me.attr('data-id');
                 var params = {
@@ -34,11 +36,11 @@ jQuery(function($) {'use strict',
                 }, 'JSON')
             });
             //编辑
-            $('.panel').on('click', '.edit-brand', function(){
+            $('.panel').on('click', '.edit-product', function(){
                 var me = $(this);
                 var id = me.attr('data-id');
                 var name = me.attr('data-name');
-                renderModal({"name": name});
+                renderModal();
                 $('#addModal').attr('data-type', 'edit').modal('show');
                 $('#addModal').off('shown.bs.modal.edit').on('shown.bs.modal.edit', function () {
                     if ($('#addModal').attr('data-type') != 'edit') {
@@ -46,7 +48,7 @@ jQuery(function($) {'use strict',
                     }
                     renderUploader();
                     $('.add-submit').click(function(){
-                        var name = $.trim($('.form-brand-name').val());
+                        var name = $.trim($('.form-product-name').val());
                         var imageUrl = $('#exampleInputFile').attr('data-image');
                         var params = {};
                         params[id] = JSON.stringify({"name": name, "image": imageUrl});
@@ -57,8 +59,8 @@ jQuery(function($) {'use strict',
                 });
             })
             //增加
-            $('.panel').on('click', '.add-brand', function(){
-                renderModal({"name": ""});
+            $('.panel').on('click', '.add-product', function(){
+                renderModal();
                 $('#addModal').attr('data-type', 'add').modal('show');
                 $('#addModal').off('shown.bs.modal.add').on('shown.bs.modal.add', function () {
                     if ($('#addModal').attr('data-type') != 'add') {
@@ -66,7 +68,7 @@ jQuery(function($) {'use strict',
                     }
                     renderUploader();
                     $('.add-submit').click(function(){
-                        var name = $.trim($('.form-brand-name').val());
+                        var name = $.trim($('.form-product-name').val());
                         var imageUrl = $('#exampleInputFile').attr('data-image');
                         var params = {};
                         params = {
@@ -80,6 +82,7 @@ jQuery(function($) {'use strict',
             })
         }
         function renderModal(data) {
+            data = data || {};
             $.get(tpl.modal, function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.modal-body').html(rendered);
@@ -94,7 +97,7 @@ jQuery(function($) {'use strict',
                     $.uploader.updateFileStatus(id, 'default', 'Uploading...');
                 },
                 onNewFile: function(id, file){
-                    $.uploader.addFile('#upload-files', id, file, 'single');
+                    $.uploader.addFile('#upload-files', id, file, 'mult');
                     /*** Begins Image preview loader ***/
                     if (typeof FileReader !== "undefined"){
                         var reader = new FileReader();
@@ -127,7 +130,7 @@ jQuery(function($) {'use strict',
                 }
             });
         }
-        renderBrand();
+        renderProduct();
         bindBehavior();
     })
 });

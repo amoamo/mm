@@ -1,8 +1,11 @@
 jQuery(function($) {'use strict',
-    $.getUrlParam = function (name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return null;
+    $.getId = function () {
+        var pathName = window.location.pathname;
+        var pathArr = pathName.split('/');
+        var length = pathArr.length;
+        var id = pathArr[length - 1] * 1;
+        id = isNaN(id) ? '' : id;
+        return id;
     }
   	$(document).ready(function() {
         var slideMax = 4;
@@ -18,7 +21,7 @@ jQuery(function($) {'use strict',
             "qa": '/qa',
             "featured": '/products/feature'
         };
-        var id = $.getUrlParam('id');
+        var id = $.getId();
         function renderProductInfo() {
             $.get(tpl.description, function(template) {
                 $.get(api.description + '/' + id, function(description){
@@ -44,7 +47,7 @@ jQuery(function($) {'use strict',
                 }, 'JSON')
             });
             $.get(tpl.qa, function(template) {
-                $.get(api.qa, function(qa){
+                $.get(api.qa + '/' + id, function(qa){
                     var rendered = Mustache.render(template, {
                         "qa": qa
                     });

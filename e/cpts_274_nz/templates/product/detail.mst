@@ -1,0 +1,24 @@
+{{#productLength}}
+<div class="widget_4">
+    {{#product}}
+    <div class="col-md-4 widget_1_box1">
+        <div class="coffee wid-social">
+            <div class="coffee-top">
+                <img class="img-responsive" src="{{image}}" alt="product image">
+                <div class="doe">
+                    <h6>{{name}}</h6>
+                    <p>{{category}}</p>
+                </div>
+            </div>
+            <div class="ptb12">
+                <button class="btn-success btn edit-product" data-id="{{id}}" data-name="{{name}}">Edit</button>
+                <button class="btn-success btn del-product" data-id="{{id}}">Delete</button>
+            </div>
+        </div>
+    </div>
+    {{/product}}
+</div>
+{{/productLength}}
+{{^productLength}}
+<div>There is no product. Please add it.</div>
+{{/productLength}}
