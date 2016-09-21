@@ -1,0 +1,8 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control1 form-category-name" id="name" value="{{name}}" placeholder="please input the category name">
+        </div>
+    </div>
+</form>

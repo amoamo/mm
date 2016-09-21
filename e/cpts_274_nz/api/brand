@@ -1,0 +1,6 @@
+[
+    {"name": "brand name1", "logo": "images/pic4.jpg", "id": 111},
+    {"name": "brand name3", "logo": "images/pic4.jpg", "id": 333},
+    {"name": "brand name4", "logo": "images/pic4.jpg", "id": 444},
+    {"name": "brand name2", "logo": "images/pic4.jpg", "id": 222}
+]

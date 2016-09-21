@@ -1,0 +1,24 @@
+{{#categoryLength}}
+<table class="table table-striped">
+    <thead>
+        <tr class="warning">
+            <th>Name</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#category}}
+        <tr>
+            <td>{{name}}</td>
+            <td>
+                <button class="btn-success btn edit-category" data-id="{{id}}" data-name="{{name}}">Edit</button>
+                <button class="btn-success btn del-category" data-id="{{id}}">Delete</button>
+            </td>
+        </tr>
+        {{/category}}
+    </tbody>
+</table>
+{{/categoryLength}}
+{{^categoryLength}}
+<div>There is no category. Please add it.</div>
+{{/categoryLength}}

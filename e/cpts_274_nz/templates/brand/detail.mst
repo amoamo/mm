@@ -1,0 +1,23 @@
+{{#brandLength}}
+<div class="widget_4">
+    {{#brand}}
+    <div class="col-md-4 widget_1_box1">
+        <div class="coffee wid-social">
+            <div class="coffee-top">
+                <img class="img-responsive" src="{{logo}}" alt="brand logo">
+                <div class="doe">
+                    <h6>{{name}}</h6>
+                </div>
+            </div>
+            <div class="ptb12">
+                <button class="btn-success btn edit-brand" data-id="{{id}}" data-name="{{name}}">Edit</button>
+                <button class="btn-success btn del-brand" data-id="{{id}}">Delete</button>
+            </div>
+        </div>
+    </div>
+    {{/brand}}
+</div>
+{{/brandLength}}
+{{^brandLength}}
+<div>There is no brand. Please add it.</div>
+{{/brandLength}}
