@@ -8,12 +8,12 @@ jQuery(function($) {'use strict',
             "brand": '../templates/product/brand.mst'
         };
         var api = {
-            "product": "/api/products/all",
-            "category": "/api/category",
-            "brand": "/api/brand",
-            "add": '/api/admin/product',
-            "del": '/api/admin/product',
-            "upload": '/api/upload'
+            "product": "/products/all",
+            "category": "/category",
+            "brand": "/brand",
+            "add": '/admin/product',
+            "del": '/admin/product',
+            "upload": '/upload'
         };
         function renderProduct() {
             $.get(tpl.product, function(template) {
@@ -54,7 +54,7 @@ jQuery(function($) {'use strict',
                 var params = {
                     "id": id
                 };
-                $.get(api.del, params, function(res){
+                $.post(api.del, params, function(res){
                     window.location.reload();
                 }, 'JSON')
             });
@@ -225,7 +225,7 @@ jQuery(function($) {'use strict',
 
                 var postParams = {};
                 postParams[id] = JSON.stringify(params);
-                $.get(api.add, postParams, function(res){
+                $.post(api.add, postParams, function(res){
                     window.location.reload();
                 }, 'JSON')
             })

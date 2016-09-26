@@ -7,10 +7,10 @@ jQuery(function($) {'use strict',
             "product": '../templates/qa/product.mst'
         };
         var api = {
-            "qa": "/api/qa",
-            "product": "/api/products/all",
-            "add": '/api/admin/qa',
-            "del": '/api/admin/qa'
+            "qa": "/qa",
+            "product": "/products/all",
+            "add": '/admin/qa',
+            "del": '/admin/qa'
         };
         function renderQa() {
             getQaData('all');
@@ -49,7 +49,7 @@ jQuery(function($) {'use strict',
                 var params = {
                     "id": id
                 };
-                $.get(api.del, params, function(res){
+                $.post(api.del, params, function(res){
                     window.location.reload();
                 }, 'JSON')
             });
@@ -112,7 +112,7 @@ jQuery(function($) {'use strict',
                     "question": question,
                     "answer": answer
                 });
-                $.get(api.add, params, function(res){
+                $.post(api.add, params, function(res){
                     window.location.reload();
                 }, 'JSON')
             })
