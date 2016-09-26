@@ -2,12 +2,15 @@ jQuery(function($) {'use strict',
   	$(document).ready(function() {
         var tpl = {
             "product": '../templates/product/detail.mst',
-            "modal": '../templates/product/modal.mst'
+            "modal": '../templates/product/modal.mst',
+            "specification": '../templates/product/specification.mst',
+            "category": '../templates/product/category.mst',
+            "brand": '../templates/product/brand.mst'
         };
         var api = {
             "product": "/api/products/all",
-            "category": "/category",
-            "brand": "/brand",
+            "category": "/api/category",
+            "brand": "/api/brand",
             "add": '/api/admin/product',
             "del": '/api/admin/product',
             "upload": '/api/upload'
@@ -23,6 +26,26 @@ jQuery(function($) {'use strict',
                 }, 'JSON')
             });
         }
+        function renderCategory() {
+            $.get(tpl.category, function(template) {
+                $.get(api.category, function(category){
+                    var rendered = Mustache.render(template, {
+                        "category": category
+                    });
+                    $('#category-selector').html(rendered);
+                }, 'JSON')
+            });
+        }
+        function renderBrand() {
+            $.get(tpl.brand, function(template) {
+                $.get(api.brand, function(brand){
+                    var rendered = Mustache.render(template, {
+                        "brand": brand
+                    });
+                    $('#brand-selector').html(rendered);
+                }, 'JSON')
+            });
+        }
         function bindBehavior() {
             //删除
             $('.panel').on('click', '.del-product', function(){
@@ -31,7 +54,7 @@ jQuery(function($) {'use strict',
                 var params = {
                     "id": id
                 };
-                $.post(api.del, params, function(res){
+                $.get(api.del, params, function(res){
                     window.location.reload();
                 }, 'JSON')
             });
@@ -40,44 +63,46 @@ jQuery(function($) {'use strict',
                 var me = $(this);
                 var id = me.attr('data-id');
                 var name = me.attr('data-name');
-                renderModal();
+                renderModal({name: "name"});
                 $('#addModal').attr('data-type', 'edit').modal('show');
                 $('#addModal').off('shown.bs.modal.edit').on('shown.bs.modal.edit', function () {
                     if ($('#addModal').attr('data-type') != 'edit') {
                         return;
                     }
+                    //加载category下拉
+                    renderCategory();
+                    //加载brand下拉
+                    renderBrand();
+                    //加载上传图片组件
                     renderUploader();
-                    $('.add-submit').click(function(){
-                        var name = $.trim($('.form-product-name').val());
-                        var imageUrl = $('#exampleInputFile').attr('data-image');
-                        var params = {};
-                        params[id] = JSON.stringify({"name": name, "image": imageUrl});
-                        $.post(api.add, params, function(res){
-                            window.location.reload();
-                        }, 'JSON')
-                    })
+                    //绑定add事件
+                    onAddSpecification();
+                    //绑定delete事件
+                    onDelSpecification();
+                    //绑定submit事件
+                    onSubmit(id);
                 });
             })
             //增加
             $('.panel').on('click', '.add-product', function(){
-                renderModal();
+                renderModal({name: ""});
                 $('#addModal').attr('data-type', 'add').modal('show');
                 $('#addModal').off('shown.bs.modal.add').on('shown.bs.modal.add', function () {
                     if ($('#addModal').attr('data-type') != 'add') {
                         return;
                     }
+                    //加载category下拉
+                    renderCategory();
+                    //加载brand下拉
+                    renderBrand();
+                    //加载上传图片组件
                     renderUploader();
-                    $('.add-submit').click(function(){
-                        var name = $.trim($('.form-product-name').val());
-                        var imageUrl = $('#exampleInputFile').attr('data-image');
-                        var params = {};
-                        params = {
-                            "-1": JSON.stringify({"name": name, "image": imageUrl})
-                        };
-                        $.post(api.add, params, function(res){
-                            window.location.reload();
-                        }, 'JSON')
-                    })
+                    //绑定add事件
+                    onAddSpecification();
+                    //绑定delete事件
+                    onDelSpecification();
+                    //绑定submit事件
+                    onSubmit(-1);
                 });
             })
         }
@@ -123,12 +148,88 @@ jQuery(function($) {'use strict',
                     $.uploader.updateFileStatus(id, 'success', 'Upload Complete');
                     $.uploader.updateFileProgress(id, '100%');
                     $('.progress-striped').remove();
-                    $('#exampleInputFile').attr('data-image', data.image);
+                    $('#upload-file' + id).attr('data-image', data.image);
                 },
                 onUploadError: function(id){
                     $.uploader.updateFileStatus(id, 'error', 'Upload Error, Try Again');
+                    $('#upload-file' + id).attr('data-image', '2311');
                 }
             });
+        }
+        function onAddSpecification() {
+            //增加specification
+            $('.add-specification').off('click').on('click', function(){
+                $.get(tpl.specification, function(template) {
+                    var rendered = Mustache.render(template, {
+                    });
+                    $('.specification-item:last').after(rendered);
+                });
+            });
+        }
+        function onDelSpecification() {
+            $('.specification-form').off('click.del', '.del-specification').on('click.del', '.del-specification', function(){
+                $(this).parent().remove();
+            })
+        }
+        function onSubmit(id) {
+            $('.add-submit').click(function(){
+                var name = $.trim($('.form-product-name').val());
+                var category = $('#category-selector').find('option:selected').attr('data-id');
+                var brand = $('#brand-selector').find('option:selected').attr('data-id');
+                if (name == '') {
+                    alert('please input product name!');
+                    return;
+                }
+                if (category == undefined) {
+                    alert('get category failed!');
+                    return;
+                }
+                if (brand == undefined) {
+                    alert('get brand failed!');
+                    return;
+                }
+                var shortDesc = $.trim($('#shortDesc').val());
+                var longDesc = $.trim($('#longDesc').val());
+                var userbook = $.trim($('#userbook').val());
+                var driver = $.trim($('#driver').val());
+                var specificationItem = $('.specification-item');
+                var specification = [];
+                $.each(specificationItem, function(k, v){
+                    var key = $.trim($(v).find('.specification-key').val());
+                    var val = $.trim($(v).find('.specification-value').val());
+                    var tmp = {};
+                    tmp[key] = val;
+                    if (key != '' && val !== '') {
+                        specification.push(tmp);
+                    }
+                })
+                var uploadEl = $('.upload-file-con');
+                var j = 0;
+                var params = {
+                    "name": name,
+                    "categoryId": category,
+                    "brandId": brand,
+                    "userBook": userbook,
+                    "driver": driver,
+                    "shortDescription": shortDesc,
+                    "longDescription": longDesc,
+                    "specification": JSON.stringify(specification)
+                };
+                $.each(uploadEl, function(k, v){
+                    var imageUrl = $(v).attr('data-image');
+                    if (imageUrl) {
+                        params['image' + j] = imageUrl;
+                        j++;
+                    }
+                })
+
+                var postParams = {};
+                postParams[id] = JSON.stringify(params);
+                $.get(api.add, postParams, function(res){
+                    debugger;
+                    window.location.reload();
+                }, 'JSON')
+            })
         }
         renderProduct();
         bindBehavior();

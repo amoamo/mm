@@ -1,0 +1,3 @@
+{{#category}}
+    <option data-id="{{id}}">{{name}}</option>
+{{/category}}

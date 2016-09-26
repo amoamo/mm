@@ -1,0 +1,6 @@
+<div class="specification-item clearfix">
+    <input type="text" class="form-control1 specification-key fl w40" value="{{key}}" placeholder="input name">
+    <span class="fl mt10">：</span>
+    <input type="text" class="form-control1 specification-value fl w40" value="{{value}}" placeholder="input value">
+    <span class="fr del-specification">-</span>
+</div>

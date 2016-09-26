@@ -1,7 +1,7 @@
 (function( $, window, undefined ) {
   $.uploader = $.extend( {}, {
     addFile: function(id, i, file, type){
-		var template = '<div id="upload-file' + i + '">' +
+		var template = '<div class="upload-file-con" id="upload-file' + i + '">' +
 		                   '<img src="" class="upload-image-preview" alt="upload image" />' +
 		                   file.name + ' <span class="upload-file-size">(' + $.uploader.humanizeSize(file.size) + ')</span><br />Status: <span class="upload-file-status">Waiting to upload</span>'+
 		                   '<div class="progress progress-striped active">'+

@@ -8,11 +8,17 @@
     <div class="form-group">
         <label for="name" class="col-sm-3 control-label">* Category</label>
         <div class="col-sm-7">
+            <select name="category-selector" id="category-selector" class="form-select">
+                <option>loading......</option>
+            </select>
         </div>
     </div>
     <div class="form-group">
         <label for="name" class="col-sm-3 control-label">* Brand</label>
         <div class="col-sm-7">
+            <select name="brand-selector" id="brand-selector" class="form-select">
+                <option>loading......</option>
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -24,7 +30,7 @@
     <div class="form-group">
         <label for="longDesc" class="col-sm-3 control-label">Long Description</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control1" id="shortDesc" value="{{longDesc}}" placeholder="please input the long description">
+            <input type="text" class="form-control1" id="longDesc" value="{{longDesc}}" placeholder="please input the long description">
         </div>
     </div>
     <div class="form-group">
@@ -39,10 +45,15 @@
             <input type="text" class="form-control1" id="driver" value="{{driver}}" placeholder="please input driver">
         </div>
     </div>
-    <div class="form-group">
-        <label for="driver" class="col-sm-3 control-label">Driver</label>
+    <div class="form-group specification-form">
+        <label for="specification" class="col-sm-3 control-label">Specification</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control1" id="driver" value="{{driver}}" placeholder="please input driver">
+            <div class="specification-item clearfix">
+                <input type="text" class="form-control1 specification-key fl w40" value="{{key}}" placeholder="input name">
+                <span class="fl mt10">：</span>
+                <input type="text" class="form-control1 specification-value fl w40" value="{{value}}" placeholder="input value">
+                <span class="fr add-specification">+</span>
+            </div>
         </div>
     </div>
     <div class="form-group">
