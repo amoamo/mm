@@ -1921,6 +1921,38 @@ label.round {
   font-weight:300;
   line-height:1.5em;
 }
+.qa-item{
+    padding: 1em 2em;
+    margin-bottom: 30px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+}
+.qa-item h2{
+  color:#000;
+  font-size:1.3em;
+  font-weight:300;
+}
+.qa-item p{
+  color:#999;
+  font-size:0.85em;
+  font-weight:300;
+  line-height:1.5em;
+}
+.qa-left {
+    text-align: left;
+}
+.qa-left .qa-category {
+    font-size: 0.85em;
+}
+textarea {
+    width: 100%;
+}
+.ml15 {
+    margin-left: 15px;
+}
+.mr15 {
+    margin-right: 15px;
+}
 .list-inline {
   margin:1em 0 0 0;
 }

@@ -27,12 +27,8 @@ jQuery(function($) {'use strict',
             });
         }
         function renderQa(id) {
-            var url = tpl.qa;
-            if (id != undefined) {
-                url += '/' + id;
-            }
             $.get(url, function(template) {
-                $.get(api.qa, function(qa){
+                $.get(api.qa + '/' + id, function(qa){
                     var rendered = Mustache.render(template, {
                         "qa": qa
                     });
@@ -41,6 +37,6 @@ jQuery(function($) {'use strict',
             });
         }
         renderCategory();
-        renderQa();
+        renderQa('all');
     })
 });

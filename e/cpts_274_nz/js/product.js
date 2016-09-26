@@ -226,7 +226,6 @@ jQuery(function($) {'use strict',
                 var postParams = {};
                 postParams[id] = JSON.stringify(params);
                 $.get(api.add, postParams, function(res){
-                    debugger;
                     window.location.reload();
                 }, 'JSON')
             })

@@ -1,0 +1,13 @@
+<div class="qa-con">
+    {{#qa}}
+    <div class="qa-item">
+        <h2>{{question}}</h2>
+        <p>{{answer}}</p>
+        <ul class="list-unstyled list-inline qa-left">
+            <li class="text-muted qa-category fr">category: {{categoryName}}</li>
+            <li><button class="btn-success btn edit-qa" data-id="{{id}}" data-question="{{question}}" data-answer="{{answer}}">Edit</button></li>
+            <li><button class="btn-success btn del-qa" data-id="{{id}}">Delete</button></li>
+        </ul>
+    </div>
+    {{/qa}}
+</div>

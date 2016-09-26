@@ -1,0 +1,3 @@
+{{#product}}
+    <option data-id="{{id}}">{{name}}</option>
+{{/product}}
