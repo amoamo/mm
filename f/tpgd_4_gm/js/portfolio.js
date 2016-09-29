@@ -3,26 +3,26 @@ jQuery(function($) {'use strict',
 	$(window).load(function(){'use strict';
         var tpl = {
             "products": "/templates/products/products.mst",
-            "brand": "/templates/products/brand.mst"
+            "category": "/templates/products/category.mst"
         };
         var api = {
             "products": "/products/all",
-            "brand": "/brand"
+            "category": "/category"
         };
-		var $portfolio_selectors = $('.portfolio-filter >li>a');
-		var $portfolio = $('.portfolio-items');
-        $portfolio_selectors.on('click', function(){
+
+        function initPortfolio() {
+            var $portfolio_selectors = $('.portfolio-filter >li>a');
+            var $portfolio = $('.portfolio-items');
+            $portfolio_selectors.on('click', function(){
             $portfolio_selectors.removeClass('active');
             $(this).addClass('active');
             var selector = $(this).attr('data-filter');
             $portfolio.isotope({ filter: selector });
             return false;
         });
-
-        function initPortfolio() {
             $('#portfolio-items').imagesLoaded( function() {
                 $portfolio.isotope({
-                    filter: '.products',
+                    //filter: '.*',
                     itemSelector : '.portfolio-item',
                     layoutMode : 'fitRows'
                 });
@@ -35,21 +35,21 @@ jQuery(function($) {'use strict',
                         "products": products
                     });
                     $('#portfolio-items').html(rendered);
-                    renderBrand();
                     initPortfolio();
                 }, 'JSON')
             });
         }
-        function renderBrand() {
-            $.get(tpl.brand, function(template) {
-                $.get(api.brand, function(brand){
+        function renderCategory() {
+            $.get(tpl.category, function(template) {
+                $.get(api.category, function(category){
                     var rendered = Mustache.render(template, {
-                        "brand": brand
+                        "category": category
                     });
-                    $('#portfolio-items').append(rendered);
+                    $('.portfolio-filter').append(rendered);
+                    renderProducts();
                 }, 'JSON')
             });
         }
-        renderProducts();
+        renderCategory();
 	});
 });

@@ -1,4 +1,5 @@
 {{#qa}}
+<div class="portfolio-item {{categoryName}}">
     <div class="panel panel-default">
         <div class="panel-heading active">
         <h3 class="panel-title"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">{{question}}<i class="fa fa-angle-right pull-right"></i> </a> </h3>
@@ -11,4 +12,5 @@
         </div>
         </div>
     </div>
+</div>
 {{/qa}}

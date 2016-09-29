@@ -8,35 +8,46 @@ jQuery(function($) {'use strict',
             "category": "/category",
             "qa": '/qa'
         };
+        function initPortfolio() {
+            var $portfolio_selectors = $('.portfolio-filter >li>a');
+            var $portfolio = $('.portfolio-items');
+            $portfolio_selectors.on('click', function(){
+                $portfolio_selectors.removeClass('active');
+                $(this).addClass('active');
+                var selector = $(this).attr('data-filter');
+                $portfolio.isotope({ filter: selector });
+                return false;
+            });
+            $('#portfolio-items').imagesLoaded( function() {
+                $portfolio.isotope({
+                    //filter: '.*',
+                    itemSelector : '.portfolio-item',
+                    layoutMode : 'fitRows'
+                });
+            })
+        }
         function renderCategory() {
             $.get(tpl.category, function(template) {
                 $.get(api.category, function(category){
                     var rendered = Mustache.render(template, {
                         "category": category
                     });
-                    $('#qa-filter').append(rendered);
-                    $(".dropdown-menu li").on("click", function(){
-                        var me = $(this);
-                        var id = me.attr("data-id");
-                        $('.dropdown-menu li').removeClass('active');
-                        me.addClass('active');
-                        $('.dropdown-chose').html(me.find('a').html());
-                        renderQa(id);
-                    });
+                    $('.portfolio-filter').append(rendered);
+                    renderQa('all');
                 }, 'JSON')
             });
         }
         function renderQa(id) {
-            $.get(url, function(template) {
+            $.get(tpl.qa, function(template) {
                 $.get(api.qa + '/' + id, function(qa){
                     var rendered = Mustache.render(template, {
                         "qa": qa
                     });
                     $('#qa-details').html(rendered);
+                    initPortfolio();
                 }, 'JSON')
             });
         }
         renderCategory();
-        renderQa('all');
     })
 });

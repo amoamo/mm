@@ -1,0 +1,259 @@
+diff --git a/f/tpgd_4_gm/api/products/all b/f/tpgd_4_gm/api/products/all
+index 63df69c..62a2ef7 100644
+--- a/f/tpgd_4_gm/api/products/all
++++ b/f/tpgd_4_gm/api/products/all
+@@ -1,7 +1,7 @@
+ [
+-    {"name": "product name1", "category": "category name1", "image": "images/portfolio/full/item1.jpg", "id": 11},
+-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item2.jpg", "id": 22},
+-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item1.jpg", "id": 33},
+-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item1.jpg", "id": 44},
+-    {"name": "product name2", "category": "category name2", "image": "images/portfolio/full/item1.jpg", "id": 55}
++    {"name": "product name1", "category": "category1", "image": "images/portfolio/full/item1.jpg", "id": 11},
++    {"name": "product name2", "category": "category2", "image": "images/portfolio/full/item2.jpg", "id": 22},
++    {"name": "product name2", "category": "category2", "image": "images/portfolio/full/item1.jpg", "id": 33},
++    {"name": "product name2", "category": "category2", "image": "images/portfolio/full/item1.jpg", "id": 44},
++    {"name": "product name2", "category": "category2", "image": "images/portfolio/full/item1.jpg", "id": 55}
+ ]
+diff --git a/f/tpgd_4_gm/api/qa b/f/tpgd_4_gm/api/qa
+index ec2af90..56f6bf0 100644
+--- a/f/tpgd_4_gm/api/qa
++++ b/f/tpgd_4_gm/api/qa
+@@ -1,11 +1,16 @@
+ [{
+     "id": 11,
+-    "categoryName": "category_name",
++    "categoryName": "category1",
++    "question": "question_string1",
++    "answer": "answer_string1"
++},{
++    "id": 33,
++    "categoryName": "category2",
+     "question": "question_string1",
+     "answer": "answer_string1"
+ },{
+     "id": 22,
+-    "categoryName": "category_name",
++    "categoryName": "category2",
+     "question": "question_string2",
+     "answer": "answer_string2"
+ }]
+diff --git a/f/tpgd_4_gm/js/portfolio.js b/f/tpgd_4_gm/js/portfolio.js
+index ccaa991..acf3727 100644
+--- a/f/tpgd_4_gm/js/portfolio.js
++++ b/f/tpgd_4_gm/js/portfolio.js
+@@ -3,26 +3,26 @@ jQuery(function($) {'use strict',
+ 	$(window).load(function(){'use strict';
+         var tpl = {
+             "products": "/templates/products/products.mst",
+-            "brand": "/templates/products/brand.mst"
++            "category": "/templates/products/category.mst"
+         };
+         var api = {
+             "products": "/products/all",
+-            "brand": "/brand"
++            "category": "/category"
+         };
+-		var $portfolio_selectors = $('.portfolio-filter >li>a');
+-		var $portfolio = $('.portfolio-items');
+-        $portfolio_selectors.on('click', function(){
++
++        function initPortfolio() {
++            var $portfolio_selectors = $('.portfolio-filter >li>a');
++            var $portfolio = $('.portfolio-items');
++            $portfolio_selectors.on('click', function(){
+             $portfolio_selectors.removeClass('active');
+             $(this).addClass('active');
+             var selector = $(this).attr('data-filter');
+             $portfolio.isotope({ filter: selector });
+             return false;
+         });
+-
+-        function initPortfolio() {
+             $('#portfolio-items').imagesLoaded( function() {
+                 $portfolio.isotope({
+-                    filter: '.products',
++                    //filter: '.*',
+                     itemSelector : '.portfolio-item',
+                     layoutMode : 'fitRows'
+                 });
+@@ -35,21 +35,21 @@ jQuery(function($) {'use strict',
+                         "products": products
+                     });
+                     $('#portfolio-items').html(rendered);
+-                    renderBrand();
+                     initPortfolio();
+                 }, 'JSON')
+             });
+         }
+-        function renderBrand() {
+-            $.get(tpl.brand, function(template) {
+-                $.get(api.brand, function(brand){
++        function renderCategory() {
++            $.get(tpl.category, function(template) {
++                $.get(api.category, function(category){
+                     var rendered = Mustache.render(template, {
+-                        "brand": brand
++                        "category": category
+                     });
+-                    $('#portfolio-items').append(rendered);
++                    $('.portfolio-filter').append(rendered);
++                    renderProducts();
+                 }, 'JSON')
+             });
+         }
+-        renderProducts();
++        renderCategory();
+ 	});
+ });
+diff --git a/f/tpgd_4_gm/js/qa.js b/f/tpgd_4_gm/js/qa.js
+index fd24e3d..b27de5b 100644
+--- a/f/tpgd_4_gm/js/qa.js
++++ b/f/tpgd_4_gm/js/qa.js
+@@ -8,35 +8,46 @@ jQuery(function($) {'use strict',
+             "category": "/category",
+             "qa": '/qa'
+         };
++        function initPortfolio() {
++            var $portfolio_selectors = $('.portfolio-filter >li>a');
++            var $portfolio = $('.portfolio-items');
++            $portfolio_selectors.on('click', function(){
++                $portfolio_selectors.removeClass('active');
++                $(this).addClass('active');
++                var selector = $(this).attr('data-filter');
++                $portfolio.isotope({ filter: selector });
++                return false;
++            });
++            $('#portfolio-items').imagesLoaded( function() {
++                $portfolio.isotope({
++                    //filter: '.*',
++                    itemSelector : '.portfolio-item',
++                    layoutMode : 'fitRows'
++                });
++            })
++        }
+         function renderCategory() {
+             $.get(tpl.category, function(template) {
+                 $.get(api.category, function(category){
+                     var rendered = Mustache.render(template, {
+                         "category": category
+                     });
+-                    $('#qa-filter').append(rendered);
+-                    $(".dropdown-menu li").on("click", function(){
+-                        var me = $(this);
+-                        var id = me.attr("data-id");
+-                        $('.dropdown-menu li').removeClass('active');
+-                        me.addClass('active');
+-                        $('.dropdown-chose').html(me.find('a').html());
+-                        renderQa(id);
+-                    });
++                    $('.portfolio-filter').append(rendered);
++                    renderQa('all');
+                 }, 'JSON')
+             });
+         }
+         function renderQa(id) {
+-            $.get(url, function(template) {
++            $.get(tpl.qa, function(template) {
+                 $.get(api.qa + '/' + id, function(qa){
+                     var rendered = Mustache.render(template, {
+                         "qa": qa
+                     });
+                     $('#qa-details').html(rendered);
++                    initPortfolio();
+                 }, 'JSON')
+             });
+         }
+         renderCategory();
+-        renderQa('all');
+     })
+ });
+diff --git a/f/tpgd_4_gm/portfolio.html b/f/tpgd_4_gm/portfolio.html
+index 2a2ce68..0bbb6fa 100644
+--- a/f/tpgd_4_gm/portfolio.html
++++ b/f/tpgd_4_gm/portfolio.html
+@@ -52,8 +52,7 @@
+     </div>
+       <div class="container">
+     <ul class="portfolio-filter text-center">
+-      <li><a class="btn btn-default active" href="#" data-filter=".products">Product</a></li>
+-      <li><a class="btn btn-default" href="#" data-filter=".branding">Branding</a></li>
++      <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
+     </ul>
+     <!--/#portfolio-filter-->
+ 
+diff --git a/f/tpgd_4_gm/qa.html b/f/tpgd_4_gm/qa.html
+index ae07aca..8cc1f23 100644
+--- a/f/tpgd_4_gm/qa.html
++++ b/f/tpgd_4_gm/qa.html
+@@ -48,16 +48,20 @@
+       Morbi libero elit elementum quis faucibus ac, condimentum quis nibh.</p>
+   </div>
+   <div class="container qa-container">
+-    <div class="mb30 tr">
++    <div class="mb30">
+         <div class="btn-group" id="qa-filter">
+-            <a class=" btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="dropdown-chose">All Categries</span><i class="fa fa-bars ml15"></i></a>
++            <ul class="portfolio-filter text-center">
++            <li><a class="btn btn-default active" href="#" data-filter="*">All</a></li>
++            </ul>
+         </div>
+     </div>
+     <div class="row">
+         <div class="accordion">
+-          <div class="panel-group" id="qa-details">
+-                loading......
+-          </div>
++            <div class="portfolio-items" id="portfolio-items">
++                <div class="panel-group" id="qa-details">
++                        loading......
++                </div>
++            </div>
+         </div>
+     </div>
+   </div>
+diff --git a/f/tpgd_4_gm/templates/products/products.mst b/f/tpgd_4_gm/templates/products/products.mst
+index c2cd3c2..fac19ee 100644
+--- a/f/tpgd_4_gm/templates/products/products.mst
++++ b/f/tpgd_4_gm/templates/products/products.mst
+@@ -1,9 +1,9 @@
+ {{#products}}
+-<div class="portfolio-item products col-xs-12 col-sm-4 col-md-4">
++<div class="portfolio-item {{category}} col-xs-12 col-sm-4 col-md-4">
+     <div class="recent-work-wrap"> <img class="img-responsive" src="{{image}}" alt="product image">
+     <div class="overlay">
+         <div class="recent-work-inner">
+-        <h3><a href="/product-detail.html?id={{id}}">{{name}}</a> </h3>
++        <h3><a href="/product/{{id}}">{{name}}</a> </h3>
+         <p>{{category}}</p>
+         <a class="preview" href="{{image}}" rel="prettyPhoto"><i class="fa fa-search"></i> View</a> </div>
+     </div>
+diff --git a/f/tpgd_4_gm/templates/qa/category.mst b/f/tpgd_4_gm/templates/qa/category.mst
+index e56ec86..460c9a5 100644
+--- a/f/tpgd_4_gm/templates/qa/category.mst
++++ b/f/tpgd_4_gm/templates/qa/category.mst
+@@ -1,5 +1,3 @@
+-<ul class="dropdown-menu">
+-    {{#category}}
+-        <li data-id="{{id}}"><a href="javascript:void(0)">{{name}}</a></li>
+-    {{/category}}
+-</ul>
++{{#category}}
++    <li><a class="btn btn-default" href="#" data-filter=".{{name}}">{{name}}</a></li>
++{{/category}}
+diff --git a/f/tpgd_4_gm/templates/qa/qa.mst b/f/tpgd_4_gm/templates/qa/qa.mst
+index bdd24d4..50b81c2 100644
+--- a/f/tpgd_4_gm/templates/qa/qa.mst
++++ b/f/tpgd_4_gm/templates/qa/qa.mst
+@@ -1,4 +1,5 @@
+ {{#qa}}
++<div class="portfolio-item {{categoryName}}">
+     <div class="panel panel-default">
+         <div class="panel-heading active">
+         <h3 class="panel-title"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">{{question}}<i class="fa fa-angle-right pull-right"></i> </a> </h3>
+@@ -11,4 +12,5 @@
+         </div>
+         </div>
+     </div>
++</div>
+ {{/qa}}
