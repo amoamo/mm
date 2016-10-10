@@ -1,3 +1,8 @@
+
+// 到时候为空就好了，知道了吧
+//$HOST = '';
+$HOST = 'http://127.0.0.1:8989';
+
 jQuery(function($) {'use strict',
   	$(document).ready(function() {
         var tpl = {
@@ -5,8 +10,8 @@ jQuery(function($) {'use strict',
             "qa": '../templates/qa/qa.mst'
         };
         var api = {
-            "category": "/category",
-            "qa": '/qa'
+            "category": $HOST+"/category",
+            "qa": $HOST+'/qa'
         };
         function initPortfolio() {
             var $portfolio_selectors = $('.portfolio-filter >li>a');
