@@ -32,7 +32,16 @@ jQuery(function($) {'use strict',
             $.get(tpl.products, function(template) {
                 $.get(api.products, function(products){
                     var rendered = Mustache.render(template, {
-                        "products": products
+                        "products": products,
+                        "item": function() {
+                            var me = this;
+                            var item = {};
+                            for(var k in me) {
+                                item = me;
+                                item.trimCategoryName = me.category.replace(/ /g, '');
+                                return item;
+                            }
+                        }
                     });
                     $('#portfolio-items').html(rendered);
                     initPortfolio();
@@ -43,7 +52,16 @@ jQuery(function($) {'use strict',
             $.get(tpl.category, function(template) {
                 $.get(api.category, function(category){
                     var rendered = Mustache.render(template, {
-                        "category": category
+                        "category": category,
+                        "item": function() {
+                            var me = this;
+                            var item = {};
+                            for(var k in me) {
+                                item = me;
+                                item.trimCategoryName = me.name.replace(/ /g, '');
+                                return item;
+                            }
+                        }
                     });
                     $('.portfolio-filter').append(rendered);
                     renderProducts();

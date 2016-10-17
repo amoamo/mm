@@ -1,5 +1,6 @@
 {{#products}}
-<div class="portfolio-item {{category}} col-xs-12 col-sm-4 col-md-4">
+{{#item}}
+<div class="portfolio-item {{trimCategoryName}} col-xs-12 col-sm-4 col-md-4">
     <div class="recent-work-wrap"> <img class="img-responsive" src="{{image}}" alt="product image">
     <div class="overlay">
         <div class="recent-work-inner">
@@ -9,4 +10,5 @@
     </div>
     </div>
 </div>
+{{/item}}
 {{/products}}

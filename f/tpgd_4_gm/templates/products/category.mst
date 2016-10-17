@@ -1,3 +1,5 @@
 {{#category}}
-    <li><a class="btn btn-default" href="#" data-filter=".{{name}}">{{name}}</a></li>
+    {{#item}}
+    <li><a class="btn btn-default" href="#" data-filter=".{{trimCategoryName}}">{{name}}</a></li>
+    {{/item}}
 {{/category}}

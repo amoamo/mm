@@ -1,8 +1,3 @@
-
-// 到时候为空就好了，知道了吧
-//$HOST = '';
-$HOST = 'http://127.0.0.1:8989';
-
 jQuery(function($) {'use strict',
   	$(document).ready(function() {
         var tpl = {
@@ -10,8 +5,8 @@ jQuery(function($) {'use strict',
             "qa": '../templates/qa/qa.mst'
         };
         var api = {
-            "category": $HOST+"/category",
-            "qa": $HOST+'/qa'
+            "category": "/category",
+            "qa": '/qa'
         };
         function initPortfolio() {
             var $portfolio_selectors = $('.portfolio-filter >li>a');
@@ -35,7 +30,16 @@ jQuery(function($) {'use strict',
             $.get(tpl.category, function(template) {
                 $.get(api.category, function(category){
                     var rendered = Mustache.render(template, {
-                        "category": category
+                        "category": category,
+                        "item": function() {
+                            var me = this;
+                            var item = {};
+                            for(var k in me) {
+                                item = me;
+                                item.trimCategoryName = me.name.replace(/ /g, '');
+                                return item;
+                            }
+                        }
                     });
                     $('.portfolio-filter').append(rendered);
                     renderQa('all');
@@ -46,7 +50,16 @@ jQuery(function($) {'use strict',
             $.get(tpl.qa, function(template) {
                 $.get(api.qa + '/' + id, function(qa){
                     var rendered = Mustache.render(template, {
-                        "qa": qa
+                        "qa": qa,
+                        "item": function() {
+                            var me = this;
+                            var item = {};
+                            for(var k in me) {
+                                item = me;
+                                item.trimCategoryName = me.categoryName.replace(/ /g, '');
+                                return item;
+                            }
+                        }
                     });
                     $('#qa-details').html(rendered);
                     initPortfolio();
