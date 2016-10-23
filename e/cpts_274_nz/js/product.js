@@ -15,6 +15,11 @@ jQuery(function($) {'use strict',
             "del": '/admin/product',
             "upload": '/upload'
         };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         function renderProduct() {
             $.get(tpl.product, function(template) {
                 $.get(api.product, function(product){
@@ -52,7 +57,8 @@ jQuery(function($) {'use strict',
                 var me = $(this);
                 var id = me.attr('data-id');
                 var params = {
-                    "id": id
+                    "id": id,
+                    "type": "del"
                 };
                 $.post(api.del, params, function(res){
                     window.location.reload();
@@ -205,7 +211,9 @@ jQuery(function($) {'use strict',
                 })
                 var uploadEl = $('.upload-file-con');
                 var j = 0;
+                var type = (id == -1) ? 'add' : 'edit';
                 var params = {
+                    "id": id,
                     "name": name,
                     "categoryId": category,
                     "brandId": brand,
@@ -213,7 +221,8 @@ jQuery(function($) {'use strict',
                     "driver": driver,
                     "shortDescription": shortDesc,
                     "longDescription": longDesc,
-                    "specification": JSON.stringify(specification)
+                    "specification": JSON.stringify(specification),
+                    "type": type
                 };
                 $.each(uploadEl, function(k, v){
                     var imageUrl = $(v).attr('data-image');
@@ -224,7 +233,7 @@ jQuery(function($) {'use strict',
                 })
 
                 var postParams = {};
-                postParams[id] = JSON.stringify(params);
+                postParams = JSON.stringify(params);
                 $.post(api.add, postParams, function(res){
                     window.location.reload();
                 }, 'JSON')

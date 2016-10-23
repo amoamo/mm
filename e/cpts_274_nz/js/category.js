@@ -7,8 +7,14 @@ jQuery(function($) {'use strict',
         var api = {
             "category": "/category",
             "add": '/admin/category',
+            "edit": '/admin/category',
             "del": '/admin/category'
         };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         function renderCategory() {
             $.get(tpl.detail, function(template) {
                 $.get(api.category, function(category){
@@ -26,7 +32,8 @@ jQuery(function($) {'use strict',
                 var me = $(this);
                 var id = me.attr('data-id');
                 var params = {
-                    "id": id
+                    "id": id,
+                    "type": "del"
                 };
                 $.post(api.del, params, function(res){
                     window.location.reload();
@@ -46,8 +53,8 @@ jQuery(function($) {'use strict',
                     $('.add-submit').click(function(){
                         var name = $.trim($('.form-category-name').val());
                         var params = {};
-                        params[id] = JSON.stringify({"name": name});
-                        $.post(api.add, params, function(res){
+                        params = JSON.stringify({"name": name, "type": "edit", "id": id});
+                        $.post(api.edit, params, function(res){
                             window.location.reload();
                         }, 'JSON')
                     })
@@ -64,9 +71,7 @@ jQuery(function($) {'use strict',
                     $('.add-submit').click(function(){
                         var name = $.trim($('.form-category-name').val());
                         var params = {};
-                        params = {
-                            "-1": JSON.stringify({"name": name})
-                        };
+                        params = JSON.stringify({"name": name, "type": "add", "id": -1});
                         $.post(api.add, params, function(res){
                             window.location.reload();
                         }, 'JSON')

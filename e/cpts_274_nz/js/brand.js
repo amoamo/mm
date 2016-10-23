@@ -7,9 +7,15 @@ jQuery(function($) {'use strict',
         var api = {
             "brand": "/brand",
             "add": '/admin/brand',
+            "edit": '/admin/brand',
             "del": '/admin/brand',
             "upload": '/upload'
         };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         function renderBrand() {
             $.get(tpl.brand, function(template) {
                 $.get(api.brand, function(brand){
@@ -27,7 +33,8 @@ jQuery(function($) {'use strict',
                 var me = $(this);
                 var id = me.attr('data-id');
                 var params = {
-                    "id": id
+                    "id": id,
+                    "type": "del"
                 };
                 $.post(api.del, params, function(res){
                     window.location.reload();
@@ -49,8 +56,8 @@ jQuery(function($) {'use strict',
                         var name = $.trim($('.form-brand-name').val());
                         var imageUrl = $('#exampleInputFile').attr('data-image');
                         var params = {};
-                        params[id] = JSON.stringify({"name": name, "image": imageUrl});
-                        $.post(api.add, params, function(res){
+                        params = JSON.stringify({"name": name, "image": imageUrl, "type": "edit", "id": id});
+                        $.post(api.edit, params, function(res){
                             window.location.reload();
                         }, 'JSON')
                     })
@@ -69,9 +76,7 @@ jQuery(function($) {'use strict',
                         var name = $.trim($('.form-brand-name').val());
                         var imageUrl = $('#exampleInputFile').attr('data-image');
                         var params = {};
-                        params = {
-                            "-1": JSON.stringify({"name": name, "image": imageUrl})
-                        };
+                        params = JSON.stringify({"name": name, "image": imageUrl, "type": "add", "id": -1});
                         $.post(api.add, params, function(res){
                             window.location.reload();
                         }, 'JSON')

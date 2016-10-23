@@ -12,6 +12,11 @@ jQuery(function($) {'use strict',
             "add": '/admin/qa',
             "del": '/admin/qa'
         };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         function renderQa() {
             getQaData('all');
             $.get(tpl.productFilter, function(template) {
@@ -47,7 +52,8 @@ jQuery(function($) {'use strict',
                 var me = $(this);
                 var id = me.attr('data-id');
                 var params = {
-                    "id": id
+                    "id": id,
+                    "type": "del"
                 };
                 $.post(api.del, params, function(res){
                     window.location.reload();
@@ -107,10 +113,13 @@ jQuery(function($) {'use strict',
                 var answer = $.trim($('.form-answer').val());
                 var productId = $('#product-selector').find('option:selected').attr('data-id');
                 var params = {};
-                params[id] = JSON.stringify({
+                var type = (id == -1) ? 'add' : 'edit';
+                params = JSON.stringify({
+                    "id": id,
                     "productId": productId,
                     "question": question,
-                    "answer": answer
+                    "answer": answer,
+                    "type": type
                 });
                 $.post(api.add, params, function(res){
                     window.location.reload();
