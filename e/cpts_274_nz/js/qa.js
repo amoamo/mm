@@ -108,7 +108,7 @@ jQuery(function($) {'use strict',
             });
         }
         function onSubmit(id) {
-            $('.add-submit').click(function(){
+            $('.add-submit').off('click').on('click', function(){
                 var question = $.trim($('.form-question').val());
                 var answer = $.trim($('.form-answer').val());
                 var productId = $('#product-selector').find('option:selected').attr('data-id');

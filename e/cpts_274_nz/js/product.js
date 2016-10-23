@@ -178,7 +178,7 @@ jQuery(function($) {'use strict',
             })
         }
         function onSubmit(id) {
-            $('.add-submit').click(function(){
+            $('.add-submit').off('click').on('click', function(){
                 var name = $.trim($('.form-product-name').val());
                 var category = $('#category-selector').find('option:selected').attr('data-id');
                 var brand = $('#brand-selector').find('option:selected').attr('data-id');

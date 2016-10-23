@@ -52,15 +52,7 @@ jQuery(function($) {'use strict',
                         return;
                     }
                     renderUploader();
-                    $('.add-submit').click(function(){
-                        var name = $.trim($('.form-brand-name').val());
-                        var imageUrl = $('#exampleInputFile').attr('data-image');
-                        var params = {};
-                        params = JSON.stringify({"name": name, "image": imageUrl, "type": "edit", "id": id});
-                        $.post(api.edit, params, function(res){
-                            window.location.reload();
-                        }, 'JSON')
-                    })
+                    onSubmit(id);
                 });
             })
             //增加
@@ -72,16 +64,20 @@ jQuery(function($) {'use strict',
                         return;
                     }
                     renderUploader();
-                    $('.add-submit').click(function(){
-                        var name = $.trim($('.form-brand-name').val());
-                        var imageUrl = $('#exampleInputFile').attr('data-image');
-                        var params = {};
-                        params = JSON.stringify({"name": name, "image": imageUrl, "type": "add", "id": -1});
-                        $.post(api.add, params, function(res){
-                            window.location.reload();
-                        }, 'JSON')
-                    })
+                    onSubmit(-1);
                 });
+            })
+        }
+        function onSubmit(id) {
+            $('.add-submit').off('click').on('click', function(){
+                var name = $.trim($('.form-brand-name').val());
+                var imageUrl = $('#exampleInputFile').attr('data-image');
+                var params = {};
+                var type = (id == -1) ? 'add' : 'edit';
+                params = JSON.stringify({"name": name, "image": imageUrl, "type": type, "id": id});
+                $.post(api.add, params, function(res){
+                    window.location.reload();
+                }, 'JSON')
             })
         }
         function renderModal(data) {
