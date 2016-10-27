@@ -74,7 +74,7 @@ jQuery(function($) {'use strict',
                 var imageUrl = $('#exampleInputFile').attr('data-image');
                 var params = {};
                 var type = (id == -1) ? 'add' : 'edit';
-                params = JSON.stringify({"name": name, "image": imageUrl, "type": type, "id": id});
+                params = {"name": name, "image": imageUrl, "type": type, "id": id};
                 $.post(api.add, params, function(res){
                     window.location.reload();
                 }, 'JSON')

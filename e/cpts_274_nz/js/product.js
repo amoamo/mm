@@ -233,7 +233,7 @@ jQuery(function($) {'use strict',
                 })
 
                 var postParams = {};
-                postParams = JSON.stringify(params);
+                postParams = params;
                 $.post(api.add, postParams, function(res){
                     window.location.reload();
                 }, 'JSON')

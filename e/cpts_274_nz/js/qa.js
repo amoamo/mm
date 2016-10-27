@@ -114,13 +114,13 @@ jQuery(function($) {'use strict',
                 var productId = $('#product-selector').find('option:selected').attr('data-id');
                 var params = {};
                 var type = (id == -1) ? 'add' : 'edit';
-                params = JSON.stringify({
+                params = {
                     "id": id,
                     "productId": productId,
                     "question": question,
                     "answer": answer,
                     "type": type
-                });
+                };
                 $.post(api.add, params, function(res){
                     window.location.reload();
                 }, 'JSON')
