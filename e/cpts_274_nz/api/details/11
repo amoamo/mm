@@ -1,0 +1,16 @@
+{
+    "name": "xxxxx",
+    "category": "category2",
+    "driver": "",
+    "image1": "images/pic4.jpg",
+    "image2": "images/pic4.jpg",
+    "image3": "",
+    "isFeatured": true,
+    "longDescription": "MULTI-FUNCTI",
+    "shortDescription": "xa",
+    "specifications": {
+        "aa": "bb",
+        "bb": "cc"
+    },
+    "userBook": "axaxa"
+}

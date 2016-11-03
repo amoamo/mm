@@ -13,7 +13,8 @@ jQuery(function($) {'use strict',
             "brand": "/brand",
             "add": '/admin/product',
             "del": '/admin/product',
-            "upload": '/upload'
+            "upload": '/upload',
+            "details": '/details'
         };
         $.ajaxSetup({
             headers: {
@@ -31,21 +32,35 @@ jQuery(function($) {'use strict',
                 }, 'JSON')
             });
         }
-        function renderCategory() {
+        function renderCategory(name) {
             $.get(tpl.category, function(template) {
                 $.get(api.category, function(category){
                     var rendered = Mustache.render(template, {
-                        "category": category
+                        "category": category,
+                        "selectFlag": function() {
+                            if (name == this.name) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     });
                     $('#category-selector').html(rendered);
                 }, 'JSON')
             });
         }
-        function renderBrand() {
+        function renderBrand(name) {
             $.get(tpl.brand, function(template) {
                 $.get(api.brand, function(brand){
                     var rendered = Mustache.render(template, {
-                        "brand": brand
+                        "brand": brand,
+                        "selectFlag": function() {
+                            if (name == this.name) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     });
                     $('#brand-selector').html(rendered);
                 }, 'JSON')
@@ -69,29 +84,48 @@ jQuery(function($) {'use strict',
                 var me = $(this);
                 var id = me.attr('data-id');
                 var name = me.attr('data-name');
-                renderModal({name: "name"});
-                $('#addModal').attr('data-type', 'edit').modal('show');
-                $('#addModal').off('shown.bs.modal.edit').on('shown.bs.modal.edit', function () {
-                    if ($('#addModal').attr('data-type') != 'edit') {
-                        return;
-                    }
-                    //加载category下拉
-                    renderCategory();
-                    //加载brand下拉
-                    renderBrand();
-                    //加载上传图片组件
-                    renderUploader();
-                    //绑定add事件
-                    onAddSpecification();
-                    //绑定delete事件
-                    onDelSpecification();
-                    //绑定submit事件
-                    onSubmit(id);
-                });
+                $.get(api.details + '/' + id, function(details){
+                    var specifications = details.specifications || {};
+                    var specificationsArr = [];
+                    var i = 0;
+                    $.each(specifications, function(k,v) {
+                        specificationsArr.push({
+                            num: i,
+                            name: k,
+                            content: v
+                        })
+                        i++;
+                    });
+                    var category = details.category || '';
+                    var brand = details.brand || '';
+                    details.specificationsArr = specificationsArr;
+                    details.specificationNum = specificationsArr.length;
+                    renderModal(details);
+                    $('#addModal').attr('data-type', 'edit').modal('show');
+                    $('#addModal').off('shown.bs.modal.edit').on('shown.bs.modal.edit', function () {
+                        if ($('#addModal').attr('data-type') != 'edit') {
+                            return;
+                        }
+                        //加载category下拉
+                        renderCategory(category);
+                        //加载brand下拉
+                        renderBrand(brand);
+                        //加载上传图片组件
+                        renderUploader();
+                        //绑定add事件
+                        onAddSpecification();
+                        //绑定delete事件
+                        onDelSpecification();
+                        //绑定删除图片事件
+                        onDelImage();
+                        //绑定submit事件
+                        onSubmit(id);
+                    });
+                }, 'JSON')
             })
             //增加
             $('.panel').on('click', '.add-product', function(){
-                renderModal({name: ""});
+                renderModal();
                 $('#addModal').attr('data-type', 'add').modal('show');
                 $('#addModal').off('shown.bs.modal.add').on('shown.bs.modal.add', function () {
                     if ($('#addModal').attr('data-type') != 'add') {
@@ -107,6 +141,8 @@ jQuery(function($) {'use strict',
                     onAddSpecification();
                     //绑定delete事件
                     onDelSpecification();
+                    //绑定删除图片事件
+                    onDelImage();
                     //绑定submit事件
                     onSubmit(-1);
                 });
@@ -158,7 +194,7 @@ jQuery(function($) {'use strict',
                 },
                 onUploadError: function(id){
                     $.uploader.updateFileStatus(id, 'error', 'Upload Error, Try Again');
-                    $('#upload-file' + id).attr('data-image', '2311');
+                    $('#upload-file' + id).attr('data-image', '');
                 }
             });
         }
@@ -174,6 +210,11 @@ jQuery(function($) {'use strict',
         }
         function onDelSpecification() {
             $('.specification-form').off('click.del', '.del-specification').on('click.del', '.del-specification', function(){
+                $(this).parent().remove();
+            })
+        }
+        function onDelImage() {
+            $('.modal-body').off('click.delImage', '.del-image').on('click.delImage', '.del-image', function(){
                 $(this).parent().remove();
             })
         }
@@ -199,6 +240,7 @@ jQuery(function($) {'use strict',
                 var userbook = $.trim($('#userbook').val());
                 var driver = $.trim($('#driver').val());
                 var specificationItem = $('.specification-item');
+                var isFeatured = $('#feature').is(':checked');
                 var specification = [];
                 $.each(specificationItem, function(k, v){
                     var key = $.trim($(v).find('.specification-key').val());
@@ -227,7 +269,7 @@ jQuery(function($) {'use strict',
                 $.each(uploadEl, function(k, v){
                     var imageUrl = $(v).attr('data-image');
                     if (imageUrl) {
-                        params['image' + j] = imageUrl;
+                        params['image' + (j + 1)] = imageUrl;
                         j++;
                     }
                 })

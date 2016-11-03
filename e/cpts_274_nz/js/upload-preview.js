@@ -2,7 +2,7 @@
   $.uploader = $.extend( {}, {
     addFile: function(id, i, file, type){
 		var template = '<div class="upload-file-con" id="upload-file' + i + '">' +
-		                   '<img src="" class="upload-image-preview" alt="upload image" />' +
+		                   '<span class="del-image">-</span><img src="" class="upload-image-preview" alt="upload image" />' +
 		                   file.name + ' <span class="upload-file-size">(' + $.uploader.humanizeSize(file.size) + ')</span><br />Status: <span class="upload-file-status">Waiting to upload</span>'+
 		                   '<div class="progress progress-striped active">'+
 		                       '<div class="progress-bar" role="progressbar" style="width: 0%;">'+
@@ -10,6 +10,8 @@
 		                       '</div>'+
 		                   '</div>'+
 		               '</div>';
+        var num = $('.upload-file-con').length;
+        $(id).attr('file-counter', num);
 		var i = $(id).attr('file-counter');
 		if (!i){
 			$(id).empty();

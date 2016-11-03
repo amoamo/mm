@@ -24,19 +24,19 @@
     <div class="form-group">
         <label for="shortDesc" class="col-sm-3 control-label">Short Description</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control1" id="shortDesc" value="{{shortDesc}}" placeholder="please input the short description">
+            <input type="text" class="form-control1" id="shortDesc" value="{{shortDescription}}" placeholder="please input the short description">
         </div>
     </div>
     <div class="form-group">
         <label for="longDesc" class="col-sm-3 control-label">Long Description</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control1" id="longDesc" value="{{longDesc}}" placeholder="please input the long description">
+            <input type="text" class="form-control1" id="longDesc" value="{{longDescription}}" placeholder="please input the long description">
         </div>
     </div>
     <div class="form-group">
         <label for="userbook" class="col-sm-3 control-label">Userbook</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control1" id="userbook" value="{{userbook}}" placeholder="please input userbook">
+            <input type="text" class="form-control1" id="userbook" value="{{userBook}}" placeholder="please input userbook">
         </div>
     </div>
     <div class="form-group">
@@ -45,15 +45,35 @@
             <input type="text" class="form-control1" id="driver" value="{{driver}}" placeholder="please input driver">
         </div>
     </div>
+    <div class="form-group">
+        <label for="feature" class="col-sm-3 control-label">isFeatured</label>
+        <div class="col-sm-7">
+            <input type="checkbox" id="feature" {{#isFeatured}}checked{{/isFeatured}}>
+        </div>
+    </div>
     <div class="form-group specification-form">
         <label for="specification" class="col-sm-3 control-label">Specification</label>
         <div class="col-sm-7">
-            <div class="specification-item clearfix">
-                <input type="text" class="form-control1 specification-key fl w40" value="{{key}}" placeholder="input name">
-                <span class="fl mt10">：</span>
-                <input type="text" class="form-control1 specification-value fl w40" value="{{value}}" placeholder="input value">
-                <span class="fr add-specification">+</span>
-            </div>
+            {{#specificationNum}}
+                {{#specificationsArr}}
+                <div class="specification-item clearfix">
+                    <input type="text" class="form-control1 specification-key fl w40" value="{{name}}" placeholder="input name">
+                    <span class="fl mt10">：</span>
+                    <input type="text" class="form-control1 specification-value fl w40" value="{{content}}" placeholder="input value">
+                    {{^num}}<span class="fr add-specification">+</span>{{/num}}
+                    {{#num}}<span class="fr del-specification">-</span>{{/num}}
+                </div>
+                {{/specificationsArr}}
+            {{/specificationNum}}
+            {{^specificationNum}}
+                <div class="specification-item clearfix">
+                    <input type="text" class="form-control1 specification-key fl w40" value="" placeholder="input name">
+                    <span class="fl mt10">：</span>
+                    <input type="text" class="form-control1 specification-value fl w40" value="" placeholder="input value">
+                    {{^num}}<span class="fr add-specification">+</span>{{/num}}
+                    {{#num}}<span class="fr del-specification">-</span>{{/num}}
+                </div>
+            {{/specificationNum}}
         </div>
     </div>
     <div class="form-group">
@@ -61,6 +81,24 @@
         <div class="col-sm-7" id="drag-and-drop-zone">
             <input type="file" id="exampleInputFile" name="files[]"  accept="image/*" title='Click to add Image'>
             <div class="panel-body upload-panel-files" id='upload-files'>
+                {{#image1}}
+                    <div class="upload-file-con clearfix" id="upload-file0" data-image="{{image1}}">
+                        <span class="del-image">-</span>
+                        <img src="{{image1}}" class="upload-image-preview" alt="upload image">{{image1}}
+                    </div>
+                {{/image1}}
+                {{#image2}}
+                    <div class="upload-file-con clearfix" id="upload-file1" data-image="{{image2}}">
+                        <span class="del-image">-</span>
+                        <img src="{{image2}}" class="upload-image-preview" alt="upload image">{{image2}}
+                    </div>
+                {{/image2}}
+                {{#image3}}
+                    <div class="upload-file-con clearfix" id="upload-file2" data-image="{{image3}}">
+                        <span class="del-image">-</span>
+                        <img src="{{image3}}" class="upload-image-preview" alt="upload image">{{image3}}
+                    </div>
+                {{/image3}}
             </div>
         </div>
     </div>

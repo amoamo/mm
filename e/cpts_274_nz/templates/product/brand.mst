@@ -1,3 +1,3 @@
 {{#brand}}
-    <option data-id="{{id}}">{{name}}</option>
+    <option data-id="{{id}}" {{#selectFlag}}selected{{/selectFlag}}>{{name}}</option>
 {{/brand}}

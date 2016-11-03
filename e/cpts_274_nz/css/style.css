@@ -2236,13 +2236,17 @@ ul.new li.new_right{
 .specification-item {
     margin-bottom: 5px;
 }
-.add-specification, .del-specification {
+.add-specification, .del-specification, .del-image {
     margin-top: 10px;
     width: 15px;
     background: #E74225;
     text-align: center;
     color: #fff;
     cursor: pointer;
+}
+.del-image {
+    margin-right: 10px;
+    padding: 0 5px;
 }
  /*-- responsive design --*/
 @media (max-width:1366px){
