@@ -70,7 +70,7 @@ jQuery(function($) {'use strict',
                 var name = $.trim($('.form-category-name').val());
                 var params = {};
                 var type = (id == -1) ? 'add' : 'edit';
-                params = JSON.stringify({"name": name, "type": type, "id": id});
+                params = {"name": name, "type": type, "id": id};
                 $.post(api.add, params, function(res){
                     window.location.reload();
                 }, 'JSON')
